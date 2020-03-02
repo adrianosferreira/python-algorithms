@@ -18,6 +18,9 @@ def fibonacci_memoization(n, cache={}):
 def fibonacci_iterative_dp(n):
     t = {}
 
+    if n < 2:
+        return n
+
     for i in range(n + 1):
         if i < 2:
             t[i] = i
