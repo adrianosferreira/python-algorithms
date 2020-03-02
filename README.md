@@ -1,7 +1,7 @@
 # Algorithms with Python
 
 | Algorithm        | Time Complexity (Worst)           | Time Complexity (Best)  | Space Complexity |
-| ------------- |:-------------:| -----:| -----:|
+| ------------- | -------------:| -----:| -----:|
 | [Bubble Sort](https://github.com/adrianosferreira/python-algorithms/blob/master/bubble-sort.py)      | O(n^2) | O(n) | O(1) |
 | [Fibonacci Iterative](https://github.com/adrianosferreira/python-algorithms/blob/master/fibonacci.py) | O(n) |    O(n) | O(1) |
 | [Fibonacci Dynamic Programming](https://github.com/adrianosferreira/python-algorithms/blob/master/fibonacci.py) | O(n) | O(n) | O(n) |
