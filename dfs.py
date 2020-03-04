@@ -33,7 +33,7 @@ def dfs(tree):
 
     while c:
 
-        if len(s) == 0:
+        if not s:
             break
 
         c = s.pop()

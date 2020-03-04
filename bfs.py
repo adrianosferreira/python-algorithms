@@ -34,7 +34,7 @@ def bfs(node):
     q.put(node)
     node.visited = True
 
-    while q.empty() is False:
+    while not q.empty():
         current = q.get()
 
         print(current.value)
