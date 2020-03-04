@@ -5,21 +5,31 @@ class Node:
         self.value = value
         self.visited = False
 
-    def add_edge(self, val):
-        self.edges.append(Node(val))
+    def add_edge(self, edge):
+        self.edges.append(edge)
+
+    def add_edges(self, edges):
+        for edge in edges:
+            self.edges.append(edge)
 
 
-node = Node(1)
-node.add_edge(2)
-node.add_edge(3)
-node.edges[0].add_edge(4)
-node.edges[0].add_edge(5)
-node.edges[0].edges[1].add_edge(10)
+node1 = Node(1)
+node2 = Node(2)
+node3 = Node(3)
+node4 = Node(4)
+node5 = Node(5)
+
+node1.add_edges([node2, node3])
+node2.add_edges([node1, node4, node5])
+node3.add_edges([node1])
+node4.add_edges([node2])
+node5.add_edges([node2])
 
 
 def dfs(tree):
     s = [tree]
     c = tree
+    c.visited = True
 
     while c:
 
@@ -38,4 +48,4 @@ def dfs(tree):
             s.append(edge)
 
 
-print(dfs(node))
+print(dfs(node1))
