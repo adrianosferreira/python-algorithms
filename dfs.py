@@ -1,5 +1,3 @@
-from queue import *
-
 class Node:
 
     def __init__(self, value):
@@ -16,22 +14,28 @@ node.add_edge(2)
 node.add_edge(3)
 node.edges[0].add_edge(4)
 node.edges[0].add_edge(5)
+node.edges[0].edges[1].add_edge(10)
 
 
-def bfs(tree):
-    q = Queue()
-    q.put(tree)
+def dfs(tree):
+    s = [tree]
+    c = tree
 
-    while q.empty() is False:
-        current = q.get()
+    while c:
 
-        print(current.value)
+        if len(s) == 0:
+            break
 
-        for edge in current.edges:
+        c = s.pop()
+
+        print(c.value)
+
+        for edge in c.edges:
             if edge.visited:
                 continue
 
-            q.put(edge)
+            edge.visited = True
+            s.append(edge)
 
 
-print(bfs(node))
+print(dfs(node))
