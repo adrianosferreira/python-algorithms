@@ -1,29 +1,26 @@
 g = {
-    0: [1, 2],
-    1: [0, 4],
-    2: [0, 3],
-    3: [2, 5],
-    4: [1, 5, 6],
-    5: [3, 4],
-    6: [4, 7],
-    7: [6],
+    0: [1, 2, 3],
+    1: [0, 4, 5],
+    2: [0, 6],
+    3: [0],
+    4: [1],
+    5: [1],
+    6: [2],
 }
 
 visited = [False for x in g]
 
 
-def dfs(at):
-    if visited[at]:
+def dfs_recursive(node):
+    if visited[node]:
         return
 
-    visited[at] = True
+    print(node)
+    visited[node] = True
+    neighbours = g[node]
 
-    print(at)
-
-    neighbours = g[at]
-    for n in neighbours:
-        dfs(n)
+    for neighbour in neighbours:
+        dfs_recursive(neighbour)
 
 
-start_node = 0
-dfs(start_node)
+dfs_recursive(0)
