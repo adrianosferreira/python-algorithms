@@ -1,50 +1,32 @@
 from queue import *
 
-
-class Node:
-
-    def __init__(self, value):
-        self.edges = []
-        self.value = value
-        self.visited = False
-
-    def add_edge(self, edge):
-        self.edges.append(edge)
-
-    def add_edges(self, edges):
-        for edge in edges:
-            self.edges.append(edge)
+g = {
+    0: [1, 2],
+    1: [0, 6],
+    2: [3, 0],
+    3: [2, 4, 5],
+    4: [3],
+    5: [3, 6],
+    6: [1, 5]
+}
 
 
-node1 = Node(1)
-node2 = Node(2)
-node3 = Node(3)
-node4 = Node(4)
-node5 = Node(5)
-
-node1.add_edges([node2, node3])
-node2.add_edges([node1, node4, node5])
-node3.add_edges([node1])
-node4.add_edges([node2])
-node5.add_edges([node2])
-
-
-def bfs(node):
+def bfs(n):
     q = Queue()
-    q.put(node)
-    node.visited = True
+    q.put(n)
+    visited = [False for x in g]
+    visited[n] = True
 
     while not q.empty():
-        current = q.get()
+        c = q.get()
+        print(c)
 
-        print(current.value)
-
-        for edge in current.edges:
-            if edge.visited:
+        for edge in g[c]:
+            if visited[edge]:
                 continue
 
-            edge.visited = True
+            visited[edge] = True
             q.put(edge)
 
 
-print(bfs(node1))
+bfs(0)
