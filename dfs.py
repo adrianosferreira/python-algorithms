@@ -1,3 +1,5 @@
+from graphics import *
+
 g = {
     0: [1, 2, 3],
     1: [0, 4, 5],
