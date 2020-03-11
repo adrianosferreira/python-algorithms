@@ -2,7 +2,7 @@ from queue import *
 
 t = [
     's.....',
-    '.####.',
+    '.####e',
     '.##...',
     '..#.##',
     '#.....',
@@ -37,7 +37,10 @@ def bfs(n):
     q.put(n)
     visited = [False for x in range(nr*nc)]
     visited[get_key(n[0], n[1])] = True
-    ct = {get_key(n[0], n[1]): 0}
+    # ct = {get_key(n[0], n[1]): 0}
+    count = 1
+    nodes_found = 0
+    nodes_left = 1
 
     while not q.empty():
         c = q.get()
@@ -55,17 +58,25 @@ def bfs(n):
                 continue
 
             visited[get_key(cr, cc)] = True
-            ct[get_key(cr, cc)] = ct[get_key(row, col)] + 1
+            # ct[get_key(cr, cc)] = ct[get_key(row, col)] + 1
 
             if t[cr][cc] == '#':
                 continue
 
             if t[cr][cc] == 'e':
-                return ct[get_key(cr, cc)]
+                # return ct[get_key(cr, cc)]
+                return count
 
+            nodes_found += 1
             q.put([cr, cc])
 
-    return False
+        nodes_left -= 1
+        if nodes_left == 0:
+            count += 1
+            nodes_left = nodes_found
+            nodes_found = 0
+
+    return -1
 
 
 print(dungeon_problem())
