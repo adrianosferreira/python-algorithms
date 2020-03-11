@@ -1,37 +1,71 @@
 from queue import *
 
 t = [
-    's...',
-    '##..',
-    '#...',
-    '#.#.',
-    '#..e',
+    's.....',
+    '.####.',
+    '.##...',
+    '..#.##',
+    '#.....',
+    'e.....',
 ]
+
+nr = 6
+nc = 6
+dr = [-1, 1, 0, 0]
+dc = [0, 0, 1, -1]
 
 
 def dungeon_problem():
     start = None
-    for row in t:
-        for column in row:
-            tst = 1
+    for r, row in enumerate(t):
+        for c, col in enumerate(row):
+            if col == 's':
+                start = [r, c]
+
+        if start:
+            break
+
+    return bfs(start)
+
+
+def get_key(r, c):
+    return nc * r + c
 
 
 def bfs(n):
     q = Queue()
     q.put(n)
-    visited = [False for x in g]
-    visited[n] = True
+    visited = [False for x in range(nr*nc)]
+    visited[get_key(n[0], n[1])] = True
+    ct = {get_key(n[0], n[1]): 0}
 
     while not q.empty():
         c = q.get()
-        print(c)
+        row = c[0]
+        col = c[1]
 
-        for edge in g[c]:
-            if visited[edge]:
+        for x in range(4):
+            cr = row + dr[x]
+            cc = col + dc[x]
+
+            if cr < 0 or cc < 0 or cr >= nr or cc >= nc:
                 continue
 
-            visited[edge] = True
-            q.put(edge)
+            if visited[get_key(cr, cc)]:
+                continue
+
+            visited[get_key(cr, cc)] = True
+            ct[get_key(cr, cc)] = ct[get_key(row, col)] + 1
+
+            if t[cr][cc] == '#':
+                continue
+
+            if t[cr][cc] == 'e':
+                return ct[get_key(cr, cc)]
+
+            q.put([cr, cc])
+
+    return False
 
 
-dungeon_problem()
+print(dungeon_problem())

@@ -3,6 +3,7 @@
 | Algorithm        | Time Complexity (Worst)           | Time Complexity (Best)  | Space Complexity |
 | ------------- | -------------:| -----:| -----:|
 | [BFS](https://github.com/adrianosferreira/python-algorithms/blob/master/bfs.py)      | O(V+E) | O(V+E) | O(w) |
+| [BFS Dungeon Problem](https://github.com/adrianosferreira/python-algorithms/blob/master/bfs-dungeon-problem.py)      | ? | ? | ? |
 | [Bubble Sort](https://github.com/adrianosferreira/python-algorithms/blob/master/bubble-sort.py)      | O(n^2) | O(n) | O(1) |
 | [Binary Search](https://github.com/adrianosferreira/python-algorithms/blob/master/binary-search.py)      | O(log n) | O(1) | O(1) |
 | [DFS Recursive](https://github.com/adrianosferreira/python-algorithms/blob/master/dfs.py)      | O(V+E) | O(V+E) | O(h) |
