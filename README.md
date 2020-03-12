@@ -3,11 +3,12 @@
 | Algorithm        | Time Complexity (Worst)           | Time Complexity (Best)  | Space Complexity |
 | ------------- | -------------:| -----:| -----:|
 | [BFS](https://github.com/adrianosferreira/python-algorithms/blob/master/bfs.py)      | O(V+E) | O(V+E) | O(w) |
-| [BFS Dungeon Problem](https://github.com/adrianosferreira/python-algorithms/blob/master/bfs-dungeon-problem.py)      | ? | ? | ? |
 | [Bubble Sort](https://github.com/adrianosferreira/python-algorithms/blob/master/bubble-sort.py)      | O(n^2) | O(n) | O(1) |
 | [Binary Search](https://github.com/adrianosferreira/python-algorithms/blob/master/binary-search.py)      | O(log n) | O(1) | O(1) |
 | [DFS Recursive](https://github.com/adrianosferreira/python-algorithms/blob/master/dfs.py)      | O(V+E) | O(V+E) | O(h) |
 | [DFS Count Components](https://github.com/adrianosferreira/python-algorithms/blob/master/dfs-components.py)      | O(V+E) | O(V+E) | O(h) |
+| [Dijkstra](https://github.com/adrianosferreira/python-algorithms/blob/master/dijkstra.py)      | ? | ? | ? |
+| [Dungeon Problem](https://github.com/adrianosferreira/python-algorithms/blob/master/bfs-dungeon-problem.py)      | ? | ? | ? |
 | [Fibonacci Iterative](https://github.com/adrianosferreira/python-algorithms/blob/master/fibonacci.py) | O(n) |    O(1) | O(1) |
 | [Fibonacci Dynamic Programming](https://github.com/adrianosferreira/python-algorithms/blob/master/fibonacci.py) | O(n) | O(1) | O(n) |
 | [Fibonacci Recursive](https://github.com/adrianosferreira/python-algorithms/blob/master/fibonacci.py) | O(2^n)      |    O(1) | O(2^n) |
