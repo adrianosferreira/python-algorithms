@@ -1,164 +1,198 @@
 from queue import *
-
-dr = [-1, 1, 0, 0]
-dc = [0, 0, 1, -1]
-
-
-def numberAmazonTreasureTrucks(rows, column, grid):
-    components = {}
-    category = 0
-    visited = [False for x in range(rows * column)]
-
-    for r, r_val in enumerate(grid):
-        for c, c_val in enumerate(r_val):
-
-            if visited[get_key(r, c, column)]:
-                continue
-
-            if c_val == 0:
-                continue
-
-            category += 1
-
-            dfs_recursive([r, c], category, components, visited, column, rows, grid)
-
-    return category
-
-
-def get_key(r, c, nc):
-    return nc * r + c
-
-
-def dfs_recursive(node, category, components, visited, column, rows, grid):
-    if node[0] < 0 or node[0] > rows - 1 or node[1] < 0 or node[1] > column - 1:
-        return
-
-    if grid[node[0]][node[1]] == 0:
-        return
-
-    if visited[get_key(node[0], node[1], column)]:
-        return
-
-    visited[get_key(node[0], node[1], column)] = True
-    components[get_key(node[0], node[1], column)] = category
-
-    for x in range(4):
-        cr = node[0] + dr[x]
-        cc = node[1] + dc[x]
-
-        dfs_recursive([cr, cc], category, components, visited, column, rows, grid)
-
-
-grid = [
-    [1, 1, 0, 0],
-    [0, 0, 1, 0],
-    [0, 0, 0, 0],
-    [1, 0, 1, 1],
-    [1, 1, 1, 1],
-]
-
-# print(numberAmazonTreasureTrucks(5, 4, grid))
-
-
 from collections import defaultdict
 
 
-def criticalRouters(numRouters, numLinks, links):
-    g1 = Graph(numRouters)
-
-    for l in links:
-        g1.addEdge(l[0], l[1])
-
-    print(g1.get_critical_routers())
-
-
 class Graph:
-
-    def __init__(self, vertices):
-        self.Vertices = vertices
+    def __init__(self):
         self.graph = defaultdict(list)
-        self.Time = 0
 
-    def addEdge(self, u, Vertices):
-        self.graph[u].append(Vertices)
-        self.graph[Vertices].append(u)
-
-    def verify_router_connections(self, u, visited, ap, parent, low, disc):
-
-        children = 0
-        visited[u] = True
-        disc[u] = self.Time
-        low[u] = self.Time
-        self.Time += 1
-
-        for v in self.graph[u]:
-
-            #if v > len(visited) - 1:
-             #   continue
-
-            test = []
-
-            if not visited[v]:
-                parent[v] = u
-                children += 1
-                self.verify_router_connections(v, visited, ap, parent, low, disc)
-
-                low[u] = min(low[u], low[v])
-
-                if parent[u] == -1 and children > 1:
-                    ap[u] = True
-
-                if parent[u] != -1 and low[v] >= disc[u]:
-                    ap[u] = True
-
-            elif v != parent[u]:
-                low[u] = min(low[u], disc[v])
-
-    def get_critical_routers(self):
-
-        total = self.Vertices + 1
-        visited = [False] * total
-        disc = [float("Inf")] * total
-        low = [float("Inf")] * total
-        parent = [-1] * total
-        ap = [False] * total
-
-        for i in range(self.Vertices):
-            if not visited[i]:
-                self.verify_router_connections(i, visited, ap, parent, low, disc)
-
-        res = []
-        for index, value in enumerate(ap):
-            if value:
-                res.append(index)
-
-        return res
+    def addEdges(self, u, vertices):
+        self.graph[u].extend(vertices)
 
 
-#print(criticalRouters(7, 7, [[1, 2], [1, 3], [2, 4], [3, 4], [3, 6], [6, 7], [4, 5]]))
+g = Graph()
+g.addEdges('A', ['B', 'C', 'D'])
+g.addEdges('B', ['A', 'C'])
+g.addEdges('C', ['B', 'D'])
+g.addEdges('D', ['A', 'E'])
+g.addEdges('E', ['D', 'F', 'G'])
+g.addEdges('F', ['E'])
+g.addEdges('G', ['E'])
 
-nums = [1,3,1,3,100]
 
-def something(nums):
-    n = len(nums)
-    if n == 0:
-        return 0
-    if n <= 2:
-        return max(nums)
+def make_graph_copy(g):
+    g_clone = Graph()
+    q = Queue()
+    visited = {x: False for x in g.graph}
+    q.put(next(iter(g.graph)))
 
-    rob1 = nums[:-1]
-    rob2 = nums[1:]
+    while not q.empty():
+        c = q.get()
 
-    for i in range(1, len(rob1)):
-        if i == 1:
-            rob1[i] = max(rob1[0], rob1[1])
-            rob2[i] = max(rob2[0], rob2[1])
+        for edge in g.graph[c]:
+            g_clone.addEdges(c, [edge])
 
-            continue
+            if visited[edge]:
+                continue
 
-        rob1[i] = max(rob1[i - 1], rob1[i] + rob1[i - 2])
-        rob2[i] = max(rob2[i - 1], rob2[i] + rob2[i - 2])
+            visited[edge] = True
+            q.put(edge)
 
-    return max(max(rob1), max(rob2))
+    return g_clone
 
-print(something(nums))
+
+# print(make_graph_copy(g))
+
+
+def make_dfs(g):
+    n = next(iter(g.graph))
+    visited = {x: False for x in g.graph}
+    return helper_dfs(n, visited, g)
+
+
+def helper_dfs(n, visited, g):
+    if not visited[n]:
+        visited[n] = True
+        print(n)
+
+        for edge in g.graph[n]:
+            helper_dfs(edge, visited, g)
+
+
+# print(make_dfs(g))
+
+g2 = {
+    'A': [
+        {
+            'n': 'B',
+            'dist': 1,
+        },
+        {
+            'n': 'C',
+            'dist': 2,
+        },
+    ],
+    'B': [
+        {
+            'n': 'A',
+            'dist': 1,
+        },
+        {
+            'n': 'C',
+            'dist': 1,
+        },
+        {
+            'n': 'D',
+            'dist': 4,
+        },
+    ],
+    'C': [
+        {
+            'n': 'A',
+            'dist': 2,
+        },
+        {
+            'n': 'B',
+            'dist': 1,
+        },
+        {
+            'n': 'F',
+            'dist': 3,
+        },
+    ],
+    'D': [
+        {
+            'n': 'B',
+            'dist': 4,
+        },
+        {
+            'n': 'E',
+            'dist': 2,
+        },
+        {
+            'n': 'G',
+            'dist': 2,
+        },
+    ],
+    'E': [
+        {
+            'n': 'D',
+            'dist': 2,
+        },
+        {
+            'n': 'F',
+            'dist': 2,
+        },
+        {
+            'n': 'G',
+            'dist': 1,
+        },
+    ],
+    'F': [
+        {
+            'n': 'C',
+            'dist': 3,
+        },
+        {
+            'n': 'E',
+            'dist': 3,
+        },
+        {
+            'n': 'G',
+            'dist': 5,
+        },
+    ],
+    'G': [
+        {
+            'n': 'D',
+            'dist': 2,
+        },
+        {
+            'n': 'E',
+            'dist': 1,
+        },
+        {
+            'n': 'F',
+            'dist': 5,
+        }
+    ]
+}
+
+
+def shortest_path(g1, source, target):
+    shortestTable = {x: float('inf') for x in g1}
+    shortestTable[source] = 0
+    visited = []
+    c = source
+    s = []
+
+    while len(visited) < len(g1):
+        bestDistance = float('inf')
+        nextNode = None
+
+        for edge in g1[c]:
+            distance = shortestTable[c] + edge['dist']
+
+            if distance < shortestTable[edge['n']]:
+                shortestTable[edge['n']] = distance
+
+            if edge['n'] in visited:
+                continue
+
+            if distance < bestDistance:
+                bestDistance = distance
+                nextNode = edge['n']
+
+        if nextNode is None:
+            nextNode = s.pop()
+
+        if c not in visited:
+            visited.append(c)
+            s.append(c)
+
+        c = nextNode
+
+    return f"Best distance from {source} to {target} is {shortestTable[target]}"
+
+
+print(shortest_path(g2, 'A', 'F'))
