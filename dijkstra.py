@@ -1,118 +1,142 @@
-from queue import *
+from queue import PriorityQueue
 
-g = {
-    0: [
+g2 = {
+    'A': [
         {
-            'd': 1,
-            'n': 1
+            'n': 'B',
+            'dist': 1,
         },
         {
-            'd': 1,
-            'n': 6
+            'n': 'C',
+            'dist': 1,
+        },
+    ],
+    'B': [
+        {
+            'n': 'A',
+            'dist': 1,
         },
         {
-            'd': 1,
-            'n': 2
+            'n': 'C',
+            'dist': 1,
+        },
+        {
+            'n': 'D',
+            'dist': 4,
+        },
+    ],
+    'C': [
+        {
+            'n': 'A',
+            'dist': 1,
+        },
+        {
+            'n': 'B',
+            'dist': 1,
+        },
+        {
+            'n': 'F',
+            'dist': 3,
+        },
+    ],
+    'D': [
+        {
+            'n': 'B',
+            'dist': 4,
+        },
+        {
+            'n': 'E',
+            'dist': 2,
+        },
+        {
+            'n': 'G',
+            'dist': 2,
+        },
+    ],
+    'E': [
+        {
+            'n': 'D',
+            'dist': 2,
+        },
+        {
+            'n': 'F',
+            'dist': 2,
+        },
+        {
+            'n': 'G',
+            'dist': 1,
+        },
+    ],
+    'F': [
+        {
+            'n': 'C',
+            'dist': 3,
+        },
+        {
+            'n': 'E',
+            'dist': 3,
+        },
+        {
+            'n': 'G',
+            'dist': 5,
+        },
+    ],
+    'G': [
+        {
+            'n': 'D',
+            'dist': 2,
+        },
+        {
+            'n': 'E',
+            'dist': 1,
+        },
+        {
+            'n': 'F',
+            'dist': 5,
         }
-    ],
-    1: [
-        {
-            'd': 1,
-            'n': 0
-        },
-        {
-            'd': 10,
-            'n': 3
-        },
-    ],
-    2: [
-        {
-            'd': 1,
-            'n': 0
-        },
-        {
-            'd': 2,
-            'n': 4
-        },
-    ],
-    3: [
-        {
-            'd': 10,
-            'n': 1
-        },
-        {
-            'd': 3,
-            'n': 5
-        },
-        {
-            'd': 2,
-            'n': 4
-        }
-    ],
-    4: [
-        {
-            'd': 2,
-            'n': 2
-        },
-        {
-            'd': 3,
-            'n': 5
-        },
-        {
-            'd': 2,
-            'n': 3
-        }
-    ],
-    5: [
-        {
-            'd': 3,
-            'n': 3
-        },
-        {
-            'd': 3,
-            'n': 4
-        },
-        {
-            'd': 1,
-            'n': 6
-        }
-    ],
-    6: [
-        {
-            'd': 1,
-            'n': 0
-        },
-        {
-            'd': 1,
-            'n': 5
-        },
-    ],
+    ]
 }
 
 
-def shortest_distance(s, e):
-    visited = [False for x in g]
-    visited[s] = True
-    q = Queue()
-    q.put(s)
-    distance_table = [None for x in g]
-    distance_table[s] = 0
+def shortest_path(g1, source, target):
+    visited = {x: False for x in g1}
+    dist = {x: float('inf') for x in g1}
+    previous = {x: None for x in g1}
+    dist[source] = 0
+    pq = PriorityQueue()
+    pq.put((0, source))
 
-    while not q.empty():
-        curr = q.get()
+    while pq.qsize() > 0:
+        c = pq.get()
+        priority, index = c
 
-        for edge in g[curr]:
-            distance = distance_table[curr] + edge['d']
-            if distance_table[edge['n']] is None or distance < distance_table[edge['n']]:
-                distance_table[edge['n']] = distance
+        if index == target:
+            break
 
+        visited[c] = True
+
+        for edge in g1[index]:
             if visited[edge['n']]:
                 continue
 
-            visited[edge['n']] = True
-            q.put(edge['n'])
+            distance = dist[index] + edge['dist']
 
-    return distance_table[e]
+            if distance < dist[edge['n']]:
+                dist[edge['n']] = distance
+                previous[edge['n']] = index
+                pq.put((distance, edge['n']))
+
+    path = [target]
+    c = previous[target]
+
+    while c:
+        path.append(c)
+        c = previous[c]
+
+    path.reverse()
+    print(' > '.join(path))
+
+    return f"Best distance from {source} to {target} is {dist[target]}"
 
 
-print(shortest_distance(0, 3))
+print(shortest_path(g2, 'A', 'E'))

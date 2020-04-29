@@ -36,12 +36,3 @@ class Median:
 
     def get(self):
         return self.median
-
-
-median = Median()
-median.add(10)
-median.add(5)
-median.add(2)
-median.add(20)
-median.add(12)
-print(median.get())
