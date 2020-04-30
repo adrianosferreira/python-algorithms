@@ -58,8 +58,7 @@ class Heap:
         return int((child - 1) / 2)
 
     def heapify(self, data):
-        for x in data:
-            self.insert(x)
+        [self.insert(x) for x in data]
 
     def has_left_child(self, parent):
         return self.get_left_child(parent) < len(self.data)
