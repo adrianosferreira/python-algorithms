@@ -9,7 +9,7 @@
 | [DFS Count Components](https://github.com/adrianosferreira/python-algorithms/blob/master/dfs-components.py)      | O(V+E) | O(h) |
 | [Dijkstra](https://github.com/adrianosferreira/python-algorithms/blob/master/dijkstra.py)      | ? | ? |
 | [Dungeon Problem](https://github.com/adrianosferreira/python-algorithms/blob/master/bfs-dungeon-problem.py)      | ? | ? |
-| [Heap (min-heap)](https://github.com/adrianosferreira/python-algorithms/blob/master/heap.py)      | Insert O(Log n), Pop O(Log n), Peek O(1)| O(n) |
+| [Heap (min-heap)](https://github.com/adrianosferreira/python-algorithms/blob/master/heap.py)      | Insert O(log n), Pop O(log n), Peek O(1)| O(n) |
 | [Median Number (Binary)](https://github.com/adrianosferreira/python-algorithms/blob/master/median-binary.py) | O(n) | O(n) |
 | [Median Number (Heap)](https://github.com/adrianosferreira/python-algorithms/blob/master/median-heap.py) | O(log n) | O(n) |
 | [Fibonacci Iterative](https://github.com/adrianosferreira/python-algorithms/blob/master/fibonacci.py) | O(n) | O(1) |
